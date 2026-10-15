@@ -2,8 +2,8 @@
 
 推しマネの GitHub Pages 公開サイト。**このリポジトリが LP の唯一の正典（単一正典）**。
 
-- リモート: `oshimane/oshimane.github.io`
-- 本番URL: **https://oshimane.github.io/**
+- リモート: `sodemane/sodemane.github.io`（origin）。旧 `oshimane/oshimane.github.io` は転送専用（remote 名 `oshimane-legacy`・中身は `tools/make_legacy_redirect.py` の出力だけ）
+- 本番URL: **https://sodemane.github.io/**（2026-10-15 移行。旧 https://oshimane.github.io/ は同じパスへ転送）
 - 現況（2026-07-17時点）: **公開中・`noindex`（検索エンジン非索引・直リンクでは閲覧可能）**。本ローンチ時に `noindex` を解除して索引を許可する。
 
 ## 単一正典ルール（重要）

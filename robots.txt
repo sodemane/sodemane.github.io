@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://oshimane.github.io/sitemap.xml
+Sitemap: https://sodemane.github.io/sitemap.xml
