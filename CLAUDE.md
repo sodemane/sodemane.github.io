@@ -1,6 +1,6 @@
 # oshimane-lp — 編集ガードレール（必読）
 
-本repoは推しマネLPの**単一正典**（本番 https://oshimane.github.io/ ・push=即本番反映）。
+本repoはソデマネLPの**単一正典**（本番 https://sodemane.github.io/ ・push=即本番反映。旧 https://oshimane.github.io/ は転送専用＝2026-10-15 移行・`tools/make_legacy_redirect.py`）。
 コピーの正本ルール = `~/dev/oshikatsu-app/.gtm-loop/gtm-brand-charter.md`（GTM Brand Charter）。**LPを編集する前に必ずcharterを読むこと。**
 
 ## 誠実コピー（絶対・違反はpush禁止）
