@@ -944,8 +944,8 @@ footer{background:#fff;border-top:1px solid var(--line)}
     // ページの局面（B3-1・公開切替の1点化 2026-07-03）:
     //   "prereg" = 事前登録（現行） / "beta" = TestFlightベータ募集 / "launch" = 公開後（DLバッジ）
     // beta/launch へ切り替えるときは MODE と BETA_URL / STORE_URL を書き換えるだけ。
-    MODE: "prereg",
-    BETA_URL: "",   // TestFlight パブリックリンク（beta時に設定）
+    MODE: "beta",   // 2026-10-21 ベータ版審査の承認を受けて prereg→beta（ランブック B-3）
+    BETA_URL: "https://testflight.apple.com/join/eBkx9GGY",   // TestFlight パブリックリンク（W1ベータ・誰でも参加可）
     STORE_URL: "",  // App Store / Google Play のURL（launch時に設定）
     // Google Apps Script の WebアプリURL（デプロイ後に貼る）。空ならローカル動作のみ（どこにも送信しない）
     ENDPOINT: "https://script.google.com/macros/s/AKfycbzyPXrgkcMEVsjvUhH3cLmmswhXybSaKfAfmd9wv1UbMpoMXkG-HoijpAR411FFP-M/exec",
@@ -999,7 +999,20 @@ footer{background:#fff;border-top:1px solid var(--line)}
       var h = document.querySelector("#register h2");
       var lead = document.querySelector("#register .lead");
       if(h) h.textContent = "ベータ版、はじまりました。";
-      if(lead) lead.innerHTML = 'TestFlight からすぐに試せます。感想はアプリ内からいつでも送れます。<br><a class="btn btn-primary" style="margin-top:12px" href="' + CONFIG.BETA_URL + '">TestFlight で参加する</a>';
+      if(lead) lead.innerHTML = 'iPhone の方は、Apple 公式のベータ配信アプリ「TestFlight」からすぐに試せます（無料）。感想はアプリ内からいつでも送れます。<br><a class="btn btn-primary" style="margin-top:12px" href="' + CONFIG.BETA_URL + '">TestFlight で参加する</a><br><span style="font-size:.9em">Android の方は、下の欄から公開のお知らせを受け取れます。</span>';
+      // 「事前登録」のままだと主ボタンと食い違う表示を、beta のときだけ書き換える（2026-10-21）
+      document.querySelectorAll(".badge.b-gold, .js-countpill, .js-countreg").forEach(function(el){
+        el.textContent = "iPhone ベータ版 参加受付中";
+      });
+      document.querySelectorAll('a.btn-ghost[href="#register"]').forEach(function(a){
+        a.textContent = "ベータ版で試してみる";
+      });
+      var sticky = document.querySelector("#stickyCta small");
+      if(sticky) sticky.textContent = "iPhone ベータ版・無料で参加できます";
+      var stickyBtn = document.querySelector('#stickyCta a.btn-primary');
+      if(stickyBtn) stickyBtn.textContent = "ベータに参加";
+      var foot = document.querySelector(".foot-bar span:last-child");
+      if(foot) foot.textContent = "未リリース／iPhone ベータ版 参加受付中";
     }
     if(CONFIG.MODE === "launch" && CONFIG.STORE_URL){
       document.querySelectorAll('a.btn-primary[href="#register"]').forEach(function(a){
@@ -1027,6 +1040,7 @@ footer{background:#fff;border-top:1px solid var(--line)}
 
   /* ---- 表示人数（しきい値未満は「受付中」、以上で「N 人」） ---- */
   function renderCount(n){
+    if(CONFIG.MODE === "beta" && CONFIG.BETA_URL) return; // beta 中は applyMode の「ベータ版 参加受付中」を保つ
     var showNum = n >= (CONFIG.COUNT_MIN_SHOW || 50);
     var pill = document.querySelector(".js-countpill");
     var reg = document.querySelector(".js-countreg");
