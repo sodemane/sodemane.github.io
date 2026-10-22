@@ -1166,6 +1166,33 @@ footer{background:#fff;border-top:1px solid var(--line)}
     }
     // ページビュー計測
     track("page_view");
+    // TestFlight へのクリック計測（2026-10-22）。beta 中の「TestFlight で参加する」は #register でなく
+    // BETA_URL へ直接飛ぶので上の cta_click に入らない＝W1 の「LP → TestFlight」の段が欠けていた。
+    // 委譲で拾う（applyMode が後から差し込むリンクも、将来増えるリンクも取りこぼさない）。
+    document.addEventListener("click", function(e){
+      var a = e.target && e.target.closest ? e.target.closest('a[href*="testflight.apple.com"]') : null;
+      if(a) track("beta_click", { label: (a.textContent||"").trim() });
+    });
+    // どこまで読まれたか（2026-10-22）: 各節の頭が画面の上 6 割に入ったら、その節を 1 回だけ送る。
+    // Cookie・識別子は使わない（送るのは節の名前だけ）。
+    var reached = {};
+    function watch(els, margin){
+      if(!window.IntersectionObserver || !els.length) return;
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(en){
+          if(!en.isIntersecting) return;
+          var name = en.target.id || en.target.tagName.toLowerCase();
+          if(reached[name]) return;
+          reached[name] = true;
+          track("section_view", { label: name, elapsed: Math.round((Date.now() - PAGE_LOAD_TS) / 1000) });
+          io.unobserve(en.target);
+        });
+      }, { rootMargin: margin, threshold: 0 });
+      els.forEach(function(el){ io.observe(el); });
+    }
+    watch([].slice.call(document.querySelectorAll("main section[id]")), "0px 0px -40% 0px");
+    // フッターは背が低く「上 6 割」に頭が届かない＝少しでも見えたら最後まで読んだとみなす
+    watch([].slice.call(document.querySelectorAll("footer")), "0px");
   }
   if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
   else init();
