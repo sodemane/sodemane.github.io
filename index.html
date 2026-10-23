@@ -1003,6 +1003,11 @@ footer{background:#fff;border-top:1px solid var(--line)}
 
   /* ---- 事前登録カウンター（カウントアップ／登録で+1） ---- */
   /* ---- 局面切替（B3-1）: prereg→beta→launch を CONFIG だけで転換 ---- */
+  function isIOS(){
+    var ua = navigator.userAgent || "";
+    // iPadOS の Safari は Mac を名乗るので、タッチ点の数で見分ける
+    return /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+  }
   function applyMode(){
     if(CONFIG.MODE === "beta" && CONFIG.BETA_URL){
       document.querySelectorAll('a.btn-primary[href="#register"]').forEach(function(a){
@@ -1025,6 +1030,14 @@ footer{background:#fff;border-top:1px solid var(--line)}
       if(stickyBtn) stickyBtn.textContent = "ベータに参加";
       var foot = document.querySelector(".foot-bar span:last-child");
       if(foot) foot.textContent = "未リリース／iPhone ベータ版 参加受付中";
+      // iPhone では参加ボタンを TestFlight へ直接つなぐ（2026-10-23）。#register を経由すると
+      // 「押す→節へ移動するだけ→もう一度押す」の 2 回になり、広告から来た人が先へ進めていなかった。
+      // iPhone 以外は #register のまま（TestFlight は iPhone 用・Android は下のお知らせ登録へ）。
+      if(isIOS()){
+        document.querySelectorAll('a.btn[href="#register"]').forEach(function(a){
+          a.setAttribute("href", CONFIG.BETA_URL);
+        });
+      }
     }
     if(CONFIG.MODE === "launch" && CONFIG.STORE_URL){
       document.querySelectorAll('a.btn-primary[href="#register"]').forEach(function(a){
@@ -1181,9 +1194,19 @@ footer{background:#fff;border-top:1px solid var(--line)}
     // TestFlight へのクリック計測（2026-10-22）。beta 中の「TestFlight で参加する」は #register でなく
     // BETA_URL へ直接飛ぶので上の cta_click に入らない＝W1 の「LP → TestFlight」の段が欠けていた。
     // 委譲で拾う（applyMode が後から差し込むリンクも、将来増えるリンクも取りこぼさない）。
+    // label の @ の後ろは押された場所（2026-10-23・iPhone では上・中段・料金・画面下の帯も直接 TestFlight へ行くため）。
+    function ctaPlace(a){
+      if(a.closest("#stickyCta")) return "sticky";
+      if(a.closest(".topbar")) return "topbar";
+      if(a.closest(".hero")) return "hero";
+      if(a.closest(".midcta")) return "midcta";
+      if(a.closest(".ctaband")) return "ctaband";
+      var s = a.closest("section[id]");
+      return s ? s.id : "other";
+    }
     document.addEventListener("click", function(e){
       var a = e.target && e.target.closest ? e.target.closest('a[href*="testflight.apple.com"]') : null;
-      if(a) track("beta_click", { label: (a.textContent||"").trim() });
+      if(a) track("beta_click", { label: ((a.textContent||"").trim() + "@" + ctaPlace(a)).slice(0, 128) });
     });
     // どこまで読まれたか（2026-10-22）: 各節の頭が画面の上 6 割に入ったら、その節を 1 回だけ送る。
     // Cookie・識別子は使わない（送るのは節の名前だけ）。
