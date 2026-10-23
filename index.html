@@ -140,7 +140,7 @@ section{scroll-margin-top:76px}
 /* hero */
 .hero .grid{display:grid;grid-template-columns:1fr;gap:28px;padding-block:36px 40px}
 .hero h1{font-family:var(--font-display);font-weight:700;font-size:40px;line-height:1.16}
-.hero h1 .pk{color:var(--oshi-pink-deep)}
+.hero h1 .pk{color:var(--oshi-pink-deep);white-space:nowrap} /* 「全力 / で。」と折れない（2026-10-23） */
 .hero .sub{font-family:var(--font-display);font-weight:700;font-size:19px;line-height:1.5;margin-top:12px}
 .hero .lead{font-size:15.5px;line-height:1.9;color:var(--ink-muted);margin-top:14px}
 .hero .ctas{display:flex;flex-direction:column;gap:12px;margin-top:24px}
@@ -528,24 +528,25 @@ footer{background:#fff;border-top:1px solid var(--line)}
     <div class="wrap grid">
       <div>
         <div style="display:flex;gap:8px;flex-wrap:wrap">
-          <span class="badge b-purple">推し活 × 専属マネージャー</span>
+          <span class="badge b-purple">推し活の予定とお金を先回りするアプリ</span>
           <span class="badge b-gold">事前登録 受付中</span>
         </div>
         <h1>推しに、<span class="pk">全力で。</span></h1>
         <div class="sub">日程もお金も、あなたのマネージャーにおまかせ。</div>
-        <p class="lead">「次の参戦、準備はできていますか？」——日程のやりくりも、お金の管理も、あなたの専属マネージャーが先回り。あなたは推しに、全力を注ぐだけ。</p>
-        <p class="lead" style="font-size:.92em;margin-top:6px">ソデマネは、舞台の<b>袖（そで）</b>から本番を支える<b>マネージャー</b>。表には出ずに段取りを整え、必要なときだけそっと声をかけます。<a href="#name-origin" style="color:var(--oshi-pink-deep);font-weight:700">名前の由来 ›</a></p>
+        <!-- 参加ボタンは説明文より前（2026-10-23）: 後ろだと iPhone SE や Instagram 内のブラウザで最初の画面に入らなかった -->
         <div class="ctas">
           <a class="btn btn-primary" href="#register">無料で事前登録</a>
           <a class="btn btn-ghost" href="#features">できることを見る</a>
         </div>
+        <p class="lead">「次の参戦、準備はできていますか？」——日程のやりくりも、お金の管理も、あなたの専属マネージャーが先回り。あなたは推しに、全力を注ぐだけ。</p>
+        <p class="lead" style="font-size:.92em;margin-top:6px">ソデマネは、舞台の<b>袖（そで）</b>から本番を支える<b>マネージャー</b>。表には出ずに段取りを整え、必要なときだけそっと声をかけます。<a href="#name-origin" style="color:var(--oshi-pink-deep);font-weight:700">名前の由来 ›</a></p>
         <div class="proof">
           <span class="count-pill js-countpill">事前登録 受付中</span>
           <span class="badge b-mint">Android 版は準備中</span>
         </div>
         <div class="note">推し活の記録はスマホの中だけに保存</div>
       </div>
-      <img src="assets/screens/app-home.png" alt="ソデマネの実際のホーム画面（開発中・サンプルデータ）" style="width:100%;max-width:330px;border-radius:30px;border:1px solid #f3e3ec;box-shadow:0 24px 60px rgba(31,20,48,.22);display:block;margin:0 auto" loading="eager">
+      <img src="assets/screens/app-home.webp" alt="ソデマネの実際のホーム画面（開発中・サンプルデータ）" style="width:100%;max-width:330px;border-radius:30px;border:1px solid #f3e3ec;box-shadow:0 24px 60px rgba(31,20,48,.22);display:block;margin:0 auto" loading="eager">
       </div>
     </div>
   </section>
@@ -573,7 +574,7 @@ footer{background:#fff;border-top:1px solid var(--line)}
           <div class="jh"><svg class="ic"><use href="#ic-calendar"></use></svg><div class="scn">予定を、見落とさない</div></div>
           <p class="one">ライブ・配信・発売日・当落発表・各種締切を、ひとつのカレンダーに。</p>
           <figure class="job-shot">
-            <div class="win" style="--focus:center 28%"><img src="assets/screens/app-calendar.png" alt="参戦カレンダー（月ビュー）の実際の画面" loading="lazy"></div>
+            <div class="win" style="--focus:center 28%"><img src="assets/screens/app-calendar.webp" alt="参戦カレンダー（月ビュー）の実際の画面" loading="lazy"></div>
             <figcaption><b>📅 月ビュー</b>｜日程被り・締切もこの画面に<br>※開発中アプリの実際の画面（サンプルデータ）</figcaption>
           </figure>
           <ul class="blt">
@@ -588,7 +589,7 @@ footer{background:#fff;border-top:1px solid var(--line)}
           <div class="jh"><svg class="ic"><use href="#ic-coin"></use></svg><div class="scn">お金を、見通す</div></div>
           <p class="one">今月あといくら使える？数ヶ月先の谷は？——使う・貯める・守るを、ひと目で。</p>
           <figure class="job-shot">
-            <div class="win" style="--focus:center top"><img src="assets/screens/app-money.png" alt="お金の見通しの実際の画面" loading="lazy"></div>
+            <div class="win" style="--focus:center top"><img src="assets/screens/app-money.webp" alt="お金の見通しの実際の画面" loading="lazy"></div>
             <figcaption><b>💰 お金の見通し</b>｜今月使えるお金が最初に出る<br>※開発中アプリの実際の画面（サンプルデータ）</figcaption>
           </figure>
           <ul class="blt">
@@ -603,7 +604,7 @@ footer{background:#fff;border-top:1px solid var(--line)}
           <div class="jh"><svg class="ic"><use href="#ic-penlight"></use></svg><div class="scn">当落の「もしも」に、備える</div></div>
           <p class="one">「全部当たっても払える？」を、申込む前に。</p>
           <figure class="job-shot">
-            <div class="win" style="--focus:center 18%"><img src="assets/screens/app-lottery.png" alt="当落（応募・抽選の結果）の実際の画面" loading="lazy"></div>
+            <div class="win" style="--focus:center 18%"><img src="assets/screens/app-lottery.webp" alt="当落（応募・抽選の結果）の実際の画面" loading="lazy"></div>
             <figcaption><b>🎫 当落</b>｜当選／落選を切り替えて試算<br>※開発中アプリの実際の画面（サンプルデータ）</figcaption>
           </figure>
           <ul class="blt">
@@ -619,7 +620,7 @@ footer{background:#fff;border-top:1px solid var(--line)}
           <div class="jh"><svg class="ic"><use href="#ic-graph"></use></svg><div class="scn">仲間との立替を、整理する</div></div>
           <p class="one">連番の立替も、同行者との精算も、申込の名義も、すっきりひとつに。</p>
           <figure class="job-shot">
-            <div class="win" style="--focus:center 40%"><img src="assets/screens/app-settlement.png" alt="立替・精算の記録の実際の画面" loading="lazy"></div>
+            <div class="win" style="--focus:center 40%"><img src="assets/screens/app-settlement.webp" alt="立替・精算の記録の実際の画面" loading="lazy"></div>
             <figcaption><b>🤝 立替</b>｜記録と見える化だけ・送金はしません<br>※開発中アプリの実際の画面（サンプルデータ）</figcaption>
           </figure>
           <ul class="blt">
@@ -650,31 +651,31 @@ footer{background:#fff;border-top:1px solid var(--line)}
       <div style="display:flex;gap:34px;justify-content:center;flex-wrap:wrap;align-items:flex-start">
         <figure class="mock">
           <figcaption style="margin:0 0 12px;font-weight:900;font-size:15px;color:#2b1b26">✏️ 予定をクイック追加<br><span style="font-weight:700;font-size:12px;color:#7a6b74">3タップで登録。抽選の段取り（応募・発表・当選時の入金）も1画面。</span></figcaption>
-          <img src="assets/screens/app-add.png" alt="予定をクイック追加する実際の画面" loading="lazy" style="width:100%;border-radius:26px;border:1px solid #f3e3ec;box-shadow:0 14px 34px rgba(214,31,105,.10);display:block">
+          <img src="assets/screens/app-add.webp" alt="予定をクイック追加する実際の画面" loading="lazy" style="width:100%;border-radius:26px;border:1px solid #f3e3ec;box-shadow:0 14px 34px rgba(214,31,105,.10);display:block">
         </figure>
         <figure class="mock">
           <figcaption style="margin:0 0 12px;font-weight:900;font-size:15px;color:#2b1b26">🏠 ホーム画面（ダッシュボード）<br><span style="font-weight:700;font-size:12px;color:#7a6b74">カウントダウン・先回りのお知らせ・予定の件数をひと目で。</span></figcaption>
-          <img src="assets/screens/app-home.png" alt="ホーム画面（ダッシュボード）の実際の画面" loading="lazy" style="width:100%;border-radius:26px;border:1px solid #f3e3ec;box-shadow:0 14px 34px rgba(214,31,105,.10);display:block">
+          <img src="assets/screens/app-home.webp" alt="ホーム画面（ダッシュボード）の実際の画面" loading="lazy" style="width:100%;border-radius:26px;border:1px solid #f3e3ec;box-shadow:0 14px 34px rgba(214,31,105,.10);display:block">
         </figure>
         <figure class="mock">
           <figcaption style="margin:0 0 12px;font-weight:900;font-size:15px;color:#2b1b26">📅 参戦カレンダー<br><span style="font-weight:700;font-size:12px;color:#7a6b74">予定の"確度"で先回り。当落待ちも、行ってみたいも。</span></figcaption>
-          <img src="assets/screens/app-calendar.png" alt="参戦カレンダー（月ビュー）の実際の画面" loading="lazy" style="width:100%;border-radius:26px;border:1px solid #f3e3ec;box-shadow:0 14px 34px rgba(214,31,105,.10);display:block">
+          <img src="assets/screens/app-calendar.webp" alt="参戦カレンダー（月ビュー）の実際の画面" loading="lazy" style="width:100%;border-radius:26px;border:1px solid #f3e3ec;box-shadow:0 14px 34px rgba(214,31,105,.10);display:block">
           <!-- 月以外の 3 ビュー（締切／タイムライン／支払い）も実画面で見せる（2026-10-03）。素材は tool/capture-lp-shots.sh が追随 -->
           <div class="cal-views" role="list" aria-label="参戦カレンダーの他のビュー">
-            <figure role="listitem"><img src="assets/screens/app-calendar-deadline.png" alt="締切ビューの実際の画面" loading="lazy"><figcaption>締切</figcaption></figure>
-            <figure role="listitem"><img src="assets/screens/app-calendar-timeline.png" alt="タイムラインビューの実際の画面" loading="lazy"><figcaption>タイムライン</figcaption></figure>
-            <figure role="listitem"><img src="assets/screens/app-calendar-payment.png" alt="支払いビューの実際の画面" loading="lazy"><figcaption>支払い</figcaption></figure>
+            <figure role="listitem"><img src="assets/screens/app-calendar-deadline.webp" alt="締切ビューの実際の画面" loading="lazy"><figcaption>締切</figcaption></figure>
+            <figure role="listitem"><img src="assets/screens/app-calendar-timeline.webp" alt="タイムラインビューの実際の画面" loading="lazy"><figcaption>タイムライン</figcaption></figure>
+            <figure role="listitem"><img src="assets/screens/app-calendar-payment.webp" alt="支払いビューの実際の画面" loading="lazy"><figcaption>支払い</figcaption></figure>
           </div>
           <a class="btn btn-ghost btn-sm" href="features/calendar.html" style="margin-top:14px">参戦カレンダーを詳しく見る ›</a>
         </figure>
         <figure class="mock">
           <figcaption style="margin:0 0 12px;font-weight:900;font-size:15px;color:#2b1b26">💰 お金の見通し<br><span style="font-weight:700;font-size:12px;color:#7a6b74">「全部当たっても大丈夫？」を先に。見通し＋積立でそっと守る。</span></figcaption>
-          <img src="assets/screens/app-money.png" alt="お金の見通しの実際の画面" loading="lazy" style="width:100%;border-radius:26px;border:1px solid #f3e3ec;box-shadow:0 14px 34px rgba(214,31,105,.10);display:block">
+          <img src="assets/screens/app-money.webp" alt="お金の見通しの実際の画面" loading="lazy" style="width:100%;border-radius:26px;border:1px solid #f3e3ec;box-shadow:0 14px 34px rgba(214,31,105,.10);display:block">
           <a class="btn btn-ghost btn-sm" href="features/money.html" style="margin-top:14px">お金の見通しを詳しく見る ›</a>
         </figure>
         <figure class="mock">
           <figcaption style="margin:0 0 12px;font-weight:900;font-size:15px;color:#2b1b26">🎫 当落の「もしも」に備える<br><span style="font-weight:700;font-size:12px;color:#7a6b74">当落待ちを一列で。キャンセル料が上がる前に、そっと知らせます。</span></figcaption>
-          <img src="assets/screens/app-lottery.png" alt="当落管理の実際の画面" loading="lazy" style="width:100%;border-radius:26px;border:1px solid #f3e3ec;box-shadow:0 14px 34px rgba(214,31,105,.10);display:block">
+          <img src="assets/screens/app-lottery.webp" alt="当落管理の実際の画面" loading="lazy" style="width:100%;border-radius:26px;border:1px solid #f3e3ec;box-shadow:0 14px 34px rgba(214,31,105,.10);display:block">
           <a class="btn btn-ghost btn-sm" href="features/lottery.html" style="margin-top:14px">当落の備えを詳しく見る ›</a>
           <a class="btn btn-ghost btn-sm" href="features/deadline-tree.html" style="margin-top:8px">締切ツリーを詳しく見る ›</a>
         </figure>
@@ -836,11 +837,11 @@ footer{background:#fff;border-top:1px solid var(--line)}
         <p>色だけじゃない——背景・書体・光り方まで変わる「系スキン」。<span style="opacity:.75">下は開発中アプリの実画面です。</span></p>
       </div>
       <div class="kei-gallery" role="list" aria-label="系スキンの実画面">
-        <figure role="listitem"><img src="assets/screens/skins/neon.png" alt="ネオン系スキンの実際のホーム画面" loading="lazy"><figcaption><b>ネオン</b>サイバー・電光掲示板<span class="kei-badge soon">近日公開</span></figcaption></figure>
-        <figure role="listitem"><img src="assets/screens/skins/noir.png" alt="ノワール系スキンの実際のホーム画面" loading="lazy"><figcaption><b>ノワール</b>耽美・V系の夜<span class="kei-badge soon">近日公開</span></figcaption></figure>
-        <figure role="listitem"><img src="assets/screens/skins/star.png" alt="スター系スキンの実際のホーム画面" loading="lazy"><figcaption><b>スター</b>王道アイドル<span class="kei-badge live">先行公開中</span></figcaption></figure>
-        <figure role="listitem"><img src="assets/screens/skins/dream.png" alt="ドリーム系スキンの実際のホーム画面" loading="lazy"><figcaption><b>ドリーム</b>ゆめかわ<span class="kei-badge soon">近日公開</span></figcaption></figure>
-        <figure role="listitem"><img src="assets/screens/skins/splash.png" alt="スプラッシュ系スキンの実際のホーム画面" loading="lazy"><figcaption><b>スプラッシュ</b>ポップ・インク<span class="kei-badge soon">近日公開</span></figcaption></figure>
+        <figure role="listitem"><img src="assets/screens/skins/neon.webp" alt="ネオン系スキンの実際のホーム画面" loading="lazy"><figcaption><b>ネオン</b>サイバー・電光掲示板<span class="kei-badge soon">近日公開</span></figcaption></figure>
+        <figure role="listitem"><img src="assets/screens/skins/noir.webp" alt="ノワール系スキンの実際のホーム画面" loading="lazy"><figcaption><b>ノワール</b>耽美・V系の夜<span class="kei-badge soon">近日公開</span></figcaption></figure>
+        <figure role="listitem"><img src="assets/screens/skins/star.webp" alt="スター系スキンの実際のホーム画面" loading="lazy"><figcaption><b>スター</b>王道アイドル<span class="kei-badge live">先行公開中</span></figcaption></figure>
+        <figure role="listitem"><img src="assets/screens/skins/dream.webp" alt="ドリーム系スキンの実際のホーム画面" loading="lazy"><figcaption><b>ドリーム</b>ゆめかわ<span class="kei-badge soon">近日公開</span></figcaption></figure>
+        <figure role="listitem"><img src="assets/screens/skins/splash.webp" alt="スプラッシュ系スキンの実際のホーム画面" loading="lazy"><figcaption><b>スプラッシュ</b>ポップ・インク<span class="kei-badge soon">近日公開</span></figcaption></figure>
       </div>
       <p class="sk-note" style="margin-top:10px">まずSTAR系から公開し、反響を見て順次追加予定です。</p>
       <p class="sk-note" style="margin-top:14px"><span style="opacity:.8">※ 色・書体の着せ替えはずっと無料。系スキン（世界観まるごと）は有料・順次公開。コア機能はずっと無料です。</span></p>
@@ -1017,6 +1018,8 @@ footer{background:#fff;border-top:1px solid var(--line)}
       document.querySelectorAll('a.btn-primary[href="#register"]').forEach(function(a){
         a.textContent = "ベータ版に参加する（無料）";
       });
+      var topBtn = document.querySelector('.topbar a.btn-primary');
+      if(topBtn) topBtn.textContent = "ベータに参加";  // 上の帯は狭い＝長い文言だと 2 行に折れる（2026-10-23）
       var h = document.querySelector("#register h2");
       var lead = document.querySelector("#register .lead");
       if(h) h.textContent = "ベータ版、はじまりました。";
