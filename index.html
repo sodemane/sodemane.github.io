@@ -421,6 +421,14 @@ footer{background:#fff;border-top:1px solid var(--line)}
 }
 @media(min-width:560px){ .reg-form{flex-direction:row} .reg-form .field{flex:1} .reg-form .btn{flex:0 0 auto} }
 </style>
+<!-- Google アナリティクス（2026-10-24・LP のアクセス解析。Google シグナル・広告のパーソナライズはオフ。説明は privacy.html 第4条・第6条） -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q0PJHQH75B"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-Q0PJHQH75B', { allow_google_signals: false, allow_ad_personalization_signals: false });
+</script>
 </head>
 <body>
 
@@ -1000,6 +1008,11 @@ footer{background:#fff;border-top:1px solid var(--line)}
   })();
   function track(type, extra){
     if(!CONFIG.TRACK_EVENTS && type !== "register") return;
+    // GA へも同じ出来事を送る（2026-10-24）。page_view は GA が自動で数える。
+    // 送るのは出来事の名前と label（ボタンの文言・節の名前）だけ＝メールアドレスなどの入力値は送らない
+    if(window.gtag && type !== "page_view"){
+      gtag("event", type, (extra && extra.label) ? { label: String(extra.label).slice(0, 100) } : {});
+    }
     var base = { type: type, variant: VARIANT, path: location.pathname + UTM,
       ref: (document.referrer || ""), ts: new Date().toISOString() };
     if(extra){ for(var k in extra){ base[k] = extra[k]; } }
