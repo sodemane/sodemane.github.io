@@ -742,7 +742,7 @@ footer{background:#fff;border-top:1px solid var(--line)}
       <div class="reg-card">
         <div class="kicker">DOWNLOAD</div>
         <h2>App Store で配信中です。</h2>
-        <p class="lead">iPhone の方は、App Store から無料でダウンロードできます（基本機能は無料・アプリ内課金あり）。<br><a class="btn btn-primary" style="margin-top:12px" href="https://apps.apple.com/jp/app/id6823073327">App Store で見る</a><br><span style="font-size:.9em">Android 版は準備中です。下の欄にメールアドレスを入れると、公開のお知らせを受け取れます（Android 版の事前登録）。</span></p>
+        <p class="lead">iPhone の方は、App Store から無料でダウンロードできます（基本機能は無料・アプリ内課金あり）。<br><a class="btn btn-primary" style="margin-top:12px" href="https://apps.apple.com/jp/app/id6823073327?pt=129103393&amp;ct=lp&amp;mt=8">App Store で見る</a><br><span style="font-size:.9em">Android 版は準備中です。下の欄にメールアドレスを入れると、公開のお知らせを受け取れます（Android 版の事前登録）。</span></p>
         <div class="reg-count js-countreg">Android 版の事前登録 受付中</div>
         <form id="regForm" class="reg-form" novalidate>
           <input type="text" name="website" id="regHp" style="position:absolute;left:-9999px" tabindex="-1" autocomplete="off" aria-hidden="true">
@@ -961,7 +961,7 @@ footer{background:#fff;border-top:1px solid var(--line)}
     // beta/launch へ切り替えるときは MODE と BETA_URL / STORE_URL を書き換えるだけ。
     MODE: "launch", // 2026-10-29 App Store 公開で beta→launch（2026-10-21 に prereg→beta）
     BETA_URL: "https://testflight.apple.com/join/eBkx9GGY",   // TestFlight パブリックリンク（W1ベータ・誰でも参加可）
-    STORE_URL: "https://apps.apple.com/jp/app/id6823073327",  // App Store（Android は公開後に分岐を足す）
+    STORE_URL: "https://apps.apple.com/jp/app/id6823073327?pt=129103393&ct=lp&mt=8",  // App Store（ct=lp＝ASC の App Analytics で LP 経由のインストールを数える）
     // Google Apps Script の WebアプリURL（デプロイ後に貼る）。空ならローカル動作のみ（どこにも送信しない）
     ENDPOINT: "https://script.google.com/macros/s/AKfycbzyPXrgkcMEVsjvUhH3cLmmswhXybSaKfAfmd9wv1UbMpoMXkG-HoijpAR411FFP-M/exec",
     // 事前登録の表示人数（★実数のみ。スプレッドシートの実登録数を時々ここへ反映する。架空の数字は入れない）
