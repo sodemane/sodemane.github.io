@@ -1069,6 +1069,16 @@ footer{background:#fff;border-top:1px solid var(--line)}
         document.querySelectorAll('a.btn[href="#register"]').forEach(function(a){
           a.setAttribute("href", CONFIG.STORE_URL);
         });
+        // Meta 広告から来た人は ct を meta_lp_<広告> に差し替える（2026-10-30・広告の A/B＝App Store 直行 vs LP 経由）。
+        // ct=lp のままだと、広告経由と検索・SNS 経由のインストールを ASC で分けられない。
+        var q = new URLSearchParams(location.search);
+        if(q.get("utm_source") === "meta"){
+          var ad = (q.get("utm_content") || "").replace(/[^A-Za-z0-9_]/g, "").slice(0, 20);
+          var ct = "ct=meta_lp" + (ad ? "_" + ad : "");
+          document.querySelectorAll('a[href*="apps.apple.com"]').forEach(function(a){
+            a.setAttribute("href", a.getAttribute("href").replace("ct=lp", ct));
+          });
+        }
       } else {
         // 行き先が #register のままなので、ボタンの名前も「お知らせ」にそろえる（上の帯と下の帯は狭い＝短く）
         document.querySelectorAll('a.btn[href="#register"]').forEach(function(a){
