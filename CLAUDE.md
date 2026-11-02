@@ -16,7 +16,8 @@
 
 ## C11ルール（裁定 2026-07-17・系スキンの段階公開）
 
-- 公開ビルドは**STARのみ**。NOIR/NEON/DREAM/SPLASHは「近日公開」表記必須＝今すぐ選べるかのような見せ方禁止（各系の解禁時に解除）。
+- **2026-11-02 解除**: アプリ 1.1.0 で系スキン 5 種（STAR・NEON・NOIR・DREAM・SPLASH）とも買い切りで発売＝`CONFIG.KEI_ON_SALE: true`。発売状態の正本は oshikatsu-app の `.gtm-loop/release-state.json`（`asset_drift_check.py` が LP のフラグと突き合わせる）。
+- 月額プランで使える系は STAR のお試しだけ＝「月額で5種使える」と読める書き方は禁止。
 
 ## 運用
 
