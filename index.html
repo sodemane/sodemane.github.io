@@ -27,7 +27,21 @@
     dream:"family=Hachi+Maru+Pop&family=Kosugi+Maru&family=Quicksand:wght@700",
     splash:"family=Mochiy+Pop+One&family=M+PLUS+Rounded+1c:wght@500;700;800;900"
   };
+  // 各系の 2 つ目の書体（アプリの fontChoices と同じ・skin_packs.dart）。選ばれたときだけ読み込む
+  var ALT_FONTS={
+    neon:"family=DotGothic16",
+    noir:"family=Zen+Old+Mincho:wght@500;700;900",
+    star:"family=Mochiy+Pop+One",
+    dream:"family=Yusei+Magic",
+    splash:"family=Reggae+One"
+  }, FKEY="sodemane_lp_kei_font";
   var loaded={};
+  function altFont(k){
+    if(!ALT_FONTS[k]||loaded["alt_"+k]) return; loaded["alt_"+k]=true;
+    var l=document.createElement("link"); l.rel="stylesheet";
+    l.href="https://fonts.googleapis.com/css2?"+ALT_FONTS[k]+"&display=swap";
+    document.head.appendChild(l);
+  }
   function font(k){
     if(!FONTS[k]||loaded[k]) return; loaded[k]=true;
     var l=document.createElement("link"); l.rel="stylesheet";
@@ -40,8 +54,13 @@
     if(q!==null){ q=q.toLowerCase(); if(q==="default") k=""; else if(KEIS.indexOf(q)>=0) k=q; }
   }catch(e){}
   if(k===null){ try{ var v=localStorage.getItem(KEY); if(v&&KEIS.indexOf(v)>=0) k=v; }catch(e){} }
-  if(k){ document.documentElement.setAttribute("data-kei",k); font(k); }
-  window.__sodeKei={ list:KEIS, key:KEY, font:font, initial:k||"" };
+  var alt=false;
+  if(k){
+    document.documentElement.setAttribute("data-kei",k); font(k); altFont(k);
+    try{ alt=localStorage.getItem(FKEY)===k; }catch(e){}
+    if(alt) document.documentElement.setAttribute("data-kei-font","alt");
+  }
+  window.__sodeKei={ list:KEIS, key:KEY, font:font, altFont:altFont, fontKey:FKEY, initial:k||"", initialAlt:alt };
 })();
 </script>
 
@@ -126,6 +145,9 @@ img,svg{display:block}
   font-feature-settings:"tnum" 1}
 .disp{font-family:var(--font-display);font-weight:700;color:var(--ink);line-height:1.18}
 section{scroll-margin-top:76px}
+/* 画面画像は読み込み前に高さを確保する（遅延読み込みでページが伸びると、ページ内リンクの移動先がずれる）。全て同じ比率で書き出している */
+img[src^="assets/screens/skins/"]{aspect-ratio:600/808}
+img[src*="/app-"]{aspect-ratio:780/1696}
 
 /* icons via sprite */
 .ic{width:56px;height:56px}
@@ -168,6 +190,9 @@ section{scroll-margin-top:76px}
   border-bottom:1px solid var(--line)}
 .topbar .row{display:flex;align-items:center;justify-content:space-between;min-height:60px}
 .topbar nav{display:none}
+.topbar .row{position:relative}
+.topbar-end{display:flex;align-items:center;gap:8px}
+@media(min-width:760px){.topbar-end{gap:18px}}
 
 /* hero */
 .hero .grid{display:grid;grid-template-columns:1fr;gap:28px;padding-block:36px 40px}
@@ -556,6 +581,32 @@ html[data-kei] .hero .shot{border-color:var(--line)}
 .kei-pick button[aria-pressed="true"]{border-color:var(--oshi-pink-deep);box-shadow:inset 0 0 0 1.5px var(--oshi-pink-deep)}
 .kei-pick button:focus-visible{outline:3px solid var(--oshi-pink-deep);outline-offset:2px}
 .kei-pick .kp-note{font-size:12px;font-weight:700;color:var(--ink-muted);text-align:center;line-height:1.6;margin:0}
+/* 系ごとの 2 つ目の書体（アプリの書体変種と同じ。本文は読みやすさのため変えず、見出しと金額だけ変わる） */
+html[data-kei="neon"]{--font-alt:"DotGothic16","Zen Kaku Gothic New",system-ui,sans-serif}
+html[data-kei="noir"]{--font-alt:"Zen Old Mincho","Shippori Mincho",serif}
+html[data-kei="star"]{--font-alt:"Mochiy Pop One","Zen Maru Gothic",sans-serif}
+html[data-kei="dream"]{--font-alt:"Yusei Magic","Zen Maru Gothic",sans-serif}
+html[data-kei="splash"]{--font-alt:"Reggae One","Zen Maru Gothic",sans-serif}
+html[data-kei][data-kei-font="alt"]{--font-display:var(--font-alt);font-synthesis-weight:none}
+.kei-pick .kp-fonts{display:flex;flex-direction:column;align-items:center;gap:6px;width:100%}
+.kei-pick .kp-fonts[hidden]{display:none}
+.kei-pick .kp-frow{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;width:100%}
+.kei-pick .kp-frow button{min-height:44px}
+.kei-pick .kp-frow button b{font-family:var(--font-body);font-size:12.5px;font-weight:700;letter-spacing:0}
+.kei-pick .kp-frow button[data-kei-font="alt"] b{font-family:var(--font-alt)}
+/* ヘッダーの着せ替え（どこまでスクロールしても押せる） */
+.kei-menu[hidden]{display:none}
+.kei-toggle{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 12px;border-radius:999px;border:1.5px solid var(--line);
+  background:var(--surface,#fff);color:var(--ink);font-family:var(--font-body);font-size:13px;font-weight:800;white-space:nowrap;cursor:pointer;
+  -webkit-tap-highlight-color:transparent}
+.kei-toggle i{display:block;width:14px;height:14px;border-radius:50%;background:var(--g,linear-gradient(120deg,#ff5fa2,#8b5cf6));box-shadow:0 0 0 1px rgba(0,0,0,.08)}
+.kei-toggle[aria-expanded="true"]{border-color:var(--oshi-pink-deep)}
+.kei-toggle:focus-visible{outline:3px solid var(--oshi-pink-deep);outline-offset:2px}
+@media(max-width:359px){.kei-toggle{padding:0 8px;font-size:12px}.kei-toggle i{display:none}.topbar .btn-sm{padding:0 10px;font-size:13px}}
+.field,.field input{min-width:0}
+.kei-pop{position:absolute;top:calc(100% + 6px);right:12px;width:min(440px,calc(100vw - 24px));max-height:calc(100dvh - 84px);overflow-y:auto;
+  padding:14px;border-radius:18px;border:1px solid var(--line);background:var(--surface,#fff);box-shadow:0 18px 44px rgba(31,20,48,.24)}
+.kei-pop[hidden]{display:none}
 .hero .shot-wrap{display:flex;flex-direction:column;gap:16px;align-items:center}
 .kei-gallery figure.is-on img{outline:3px solid var(--oshi-pink-deep);outline-offset:3px}
 #kei,#kei-shots{scroll-margin-top:76px}
@@ -658,13 +709,37 @@ html[data-kei] .hero .shot{border-color:var(--line)}
 <header class="topbar">
   <div class="wrap row">
     <a href="#top" aria-label="ソデマネ"><svg class="logo"><use href="#logo"></use></svg></a>
-    <div style="display:flex;align-items:center;gap:18px">
+    <div class="topbar-end">
       <nav>
         <a href="#features">できること</a>
         <a href="#pricing">料金</a>
         <a href="#faq">よくある質問</a>
       </nav>
+      <div class="kei-menu" data-kei-menu hidden>
+        <button type="button" class="kei-toggle" aria-expanded="false" aria-controls="keiPop"><i></i>着せ替え</button>
+      </div>
       <a class="btn btn-primary btn-sm" href="#register">ダウンロード</a>
+    </div>
+    <div class="kei-pop" id="keiPop" hidden>
+      <div class="kei-pick" data-kei-pick role="group" aria-label="このページの見た目を、アプリの系スキン（世界観）で切り替える" hidden>
+        <span class="kp-lbl">このページを、アプリの世界観で着せ替え</span>
+        <div class="kp-row">
+          <button type="button" data-kei="" aria-pressed="true"><i style="--g:linear-gradient(120deg,#ff5fa2,#8b5cf6)"></i><b data-kei-name>いつもの</b><small>標準</small></button>
+          <button type="button" data-kei="star" aria-pressed="false"><i style="--g:linear-gradient(120deg,#FF4488,#FFD700)"></i><b data-kei-name>STAR</b><small data-kei-status data-sale-text="発売中">公開中</small></button>
+          <button type="button" data-kei="neon" aria-pressed="false"><i style="--g:linear-gradient(120deg,#120025,#00E5FF)"></i><b data-kei-name>NEON</b><small data-kei-status data-sale-text="発売中">近日公開</small></button>
+          <button type="button" data-kei="noir" aria-pressed="false"><i style="--g:linear-gradient(120deg,#4B0082,#D4AF6A)"></i><b data-kei-name>NOIR</b><small data-kei-status data-sale-text="発売中">近日公開</small></button>
+          <button type="button" data-kei="dream" aria-pressed="false"><i style="--g:linear-gradient(120deg,#FFD6EC,#C5E0FC,#B06BF0)"></i><b data-kei-name>DREAM</b><small data-kei-status data-sale-text="発売中">近日公開</small></button>
+          <button type="button" data-kei="splash" aria-pressed="false"><i style="--g:linear-gradient(120deg,#FF2D95,#DBFF9E)"></i><b data-kei-name>SPLASH</b><small data-kei-status data-sale-text="発売中">近日公開</small></button>
+        </div>
+        <div class="kp-fonts" data-kei-fonts role="group" aria-label="この世界観の書体を切り替える" hidden>
+          <span class="kp-lbl">書体</span>
+          <div class="kp-frow">
+            <button type="button" data-kei-font="" aria-pressed="true"><b></b></button>
+            <button type="button" data-kei-font="alt" aria-pressed="false"><b></b></button>
+          </div>
+        </div>
+        <p class="kp-note" aria-live="polite">ページの見た目を、アプリの系スキンで試せます。アプリでいま選べるのは STAR（ほかは近日公開）。</p>
+      </div>
     </div>
   </div>
 </header>
@@ -694,20 +769,7 @@ html[data-kei] .hero .shot{border-color:var(--line)}
         <div class="note">推し活の記録はスマホの中だけに保存</div>
       </div>
       <div class="shot-wrap">
-        <!-- 世界観の切替（2026-10-31）。JS が動くときだけ表示（hidden を外す）。系スキン節にも同じものを JS が複製する。
-             STAR 以外は CONFIG.KEI_ON_SALE が true になるまで「近日公開」＝アプリで今すぐ選べるようには見せない（C11） -->
-        <div class="kei-pick" data-kei-pick role="group" aria-label="このページの見た目を、アプリの系スキン（世界観）で切り替える" hidden>
-          <span class="kp-lbl">このページを、アプリの世界観で着せ替え</span>
-          <div class="kp-row">
-            <button type="button" data-kei="" aria-pressed="true"><i style="--g:linear-gradient(120deg,#ff5fa2,#8b5cf6)"></i><b data-kei-name>いつもの</b><small>標準</small></button>
-            <button type="button" data-kei="star" aria-pressed="false"><i style="--g:linear-gradient(120deg,#FF4488,#FFD700)"></i><b data-kei-name>STAR</b><small data-kei-status data-sale-text="発売中">公開中</small></button>
-            <button type="button" data-kei="neon" aria-pressed="false"><i style="--g:linear-gradient(120deg,#120025,#00E5FF)"></i><b data-kei-name>NEON</b><small data-kei-status data-sale-text="発売中">近日公開</small></button>
-            <button type="button" data-kei="noir" aria-pressed="false"><i style="--g:linear-gradient(120deg,#4B0082,#D4AF6A)"></i><b data-kei-name>NOIR</b><small data-kei-status data-sale-text="発売中">近日公開</small></button>
-            <button type="button" data-kei="dream" aria-pressed="false"><i style="--g:linear-gradient(120deg,#FFD6EC,#C5E0FC,#B06BF0)"></i><b data-kei-name>DREAM</b><small data-kei-status data-sale-text="発売中">近日公開</small></button>
-            <button type="button" data-kei="splash" aria-pressed="false"><i style="--g:linear-gradient(120deg,#FF2D95,#DBFF9E)"></i><b data-kei-name>SPLASH</b><small data-kei-status data-sale-text="発売中">近日公開</small></button>
-          </div>
-          <p class="kp-note" aria-live="polite">ページの見た目を、アプリの系スキンで試せます。アプリでいま選べるのは STAR（ほかは近日公開）。</p>
-        </div>
+        <!-- 世界観の切替はヘッダーの「着せ替え」へ移した（2026-11-03・どこまでスクロールしても押せるように）。系スキン節にも同じものを JS が複製する。 -->
         <img id="heroShot" class="shot" src="assets/screens/app-home.webp" alt="ソデマネの実際のホーム画面（サンプルデータ）" data-default-src="assets/screens/app-home.webp" data-default-alt="ソデマネの実際のホーム画面（サンプルデータ）" style="width:100%;max-width:330px;border-radius:30px;border:1px solid var(--line);box-shadow:0 24px 60px rgba(31,20,48,.22);display:block;margin:0 auto" loading="eager">
       </div>
       </div>
@@ -1434,6 +1496,31 @@ html[data-kei] .hero .shot{border-color:var(--line)}
     var picks = document.querySelectorAll("[data-kei-pick],[data-kei-pick-clone]");
     picks.forEach(function(p){ p.hidden = false; });
     var shot = document.getElementById("heroShot");
+    // 見本写真も系に合わせる（ファイル名は既定と同じ・skins/<系>/ に置く。tool/capture-lp-shots.sh --kei-shots）
+    var samples = Array.prototype.filter.call(document.querySelectorAll('img[src^="assets/screens/app-"]'), function(i){ return i !== shot; });
+    samples.forEach(function(i){ i.setAttribute("data-default-src", i.getAttribute("src")); });
+    var menu = document.querySelector("[data-kei-menu]");
+    var toggle = menu && menu.querySelector(".kei-toggle");
+    var pop = document.getElementById("keiPop");
+    function openMenu(on){
+      if(!toggle || !pop) return;
+      pop.hidden = !on;
+      toggle.setAttribute("aria-expanded", on ? "true" : "false");
+    }
+    if(toggle && pop){
+      menu.hidden = false;
+      toggle.addEventListener("click", function(){
+        var on = pop.hidden;
+        openMenu(on);
+        if(on) track("kei_menu_open", {});
+      });
+      document.addEventListener("click", function(ev){
+        if(!pop.hidden && !pop.contains(ev.target) && !menu.contains(ev.target)) openMenu(false);
+      });
+      document.addEventListener("keydown", function(ev){
+        if(ev.key === "Escape" && !pop.hidden){ openMenu(false); toggle.focus(); }
+      });
+    }
     var meta = document.querySelector('meta[name="theme-color"]');
     var metaDefault = meta ? meta.getAttribute("content") : "";
     function btnOf(k){ return pick.querySelector('button[data-kei="' + k + '"]'); }
@@ -1441,15 +1528,32 @@ html[data-kei] .hero .shot{border-color:var(--line)}
     function statusOf(k){ var b = btnOf(k); var n = b && b.querySelector("[data-kei-status]"); return n ? n.textContent : ""; }
     function note(k){
       if(KEI_SALE){
-        return k ? (nameOf(k) + " の世界観で表示中。アプリでも 5 つから選べます（各 180円の買い切り・60 秒の試着つき）。")
+        return k ? (nameOf(k) + " の世界観で表示中。アプリでも 5 つから選べます（各 180円の買い切り・60 秒の試着つき）。" + FONT_NOTE)
                  : "ページの見た目を、アプリの 5 つの系スキンで試せます（アプリでは各 180円の買い切り・60 秒の試着つき）。";
       }
       if(!k) return "ページの見た目を、アプリの系スキンで試せます。アプリでいま選べるのは STAR（ほかは近日公開）。";
       if(k === "star") return nameOf(k) + " の世界観で表示中。アプリでも選べます。";
       return nameOf(k) + " の世界観で表示中（ページの見た目だけ）。アプリでは" + statusOf(k) + "です。いま選べるのは STAR。";
     }
+    var FONT_NAMES = { neon:["サイバー標準","ピクセル（電光掲示板）"], noir:["明朝耽美","クラシック（重厚）"], star:["ステージ標準","アイドルポップ"], dream:["ゆめかわ標準","てがき（マーカー）"], splash:["インク標準","グラフィティ"] };
+    var FONT_NOTE = "書体の切り替えは、アプリではその系スキンと月額プランで使えます。";
+    function setFont(k, alt, persist){
+      if(alt) root.setAttribute("data-kei-font", "alt"); else root.removeAttribute("data-kei-font");
+      picks.forEach(function(p){
+        var box = p.querySelector("[data-kei-fonts]"); if(!box) return;
+        box.hidden = !k;
+        box.querySelectorAll("button[data-kei-font]").forEach(function(b, i){
+          b.setAttribute("aria-pressed", (b.getAttribute("data-kei-font") === "alt") === alt ? "true" : "false");
+          b.querySelector("b").textContent = k ? FONT_NAMES[k][i] : "";
+        });
+      });
+      if(persist){
+        try{ if(alt) localStorage.setItem(K.fontKey, k); else localStorage.removeItem(K.fontKey); }catch(e){}
+      }
+    }
     function setKei(k, persist){
       if(k && K.list.indexOf(k) < 0) k = "";
+      if(k) K.altFont(k); // 書体ボタンを実際の書体で見せるので、系を選んだ時点で読み込む
       if(k){ root.setAttribute("data-kei", k); K.font(k); } else { root.removeAttribute("data-kei"); }
       picks.forEach(function(p){
         p.querySelectorAll("button[data-kei]").forEach(function(b){
@@ -1460,6 +1564,14 @@ html[data-kei] .hero .shot{border-color:var(--line)}
       document.querySelectorAll("[data-kei-fig]").forEach(function(f){
         f.classList.toggle("is-on", f.getAttribute("data-kei-fig") === k);
       });
+      samples.forEach(function(i){
+        var d = i.getAttribute("data-default-src");
+        i.setAttribute("src", k ? "assets/screens/skins/" + k + "/" + d.split("/").pop() : d);
+      });
+      if(toggle){
+        var cur = pick.querySelector('button[data-kei="' + k + '"] i');
+        if(cur) toggle.querySelector("i").style.setProperty("--g", cur.style.getPropertyValue("--g"));
+      }
       if(shot){
         if(k){
           shot.src = "assets/screens/skins/" + k + ".webp";
@@ -1479,14 +1591,24 @@ html[data-kei] .hero .shot{border-color:var(--line)}
     }
     picks.forEach(function(p){
       p.addEventListener("click", function(ev){
+        var f = ev.target.closest("button[data-kei-font]");
+        if(f){
+          var cur = root.getAttribute("data-kei") || "";
+          var alt = f.getAttribute("data-kei-font") === "alt";
+          setFont(cur, alt, true);
+          track("kei_font_select", { label: cur + (alt ? "_alt" : "_standard") });
+          return;
+        }
         var b = ev.target.closest("button[data-kei]");
         if(!b) return;
         var k = b.getAttribute("data-kei") || "";
         setKei(k, true);
+        setFont(k, false, true); // 系を変えたら書体は既定へ戻す（アプリと同じ）
         track("kei_select", { label: k || "default" });
       });
     });
     setKei(K.initial, false);
+    setFont(K.initial, !!K.initialAlt, false);
     holdAnchor(); // 読み込み時だけ（ページ内リンクの滑らかなスクロールを邪魔しないよう hashchange では動かさない）
     // 初期描画のあとから色の切替を滑らかにする（読み込み直後に色が流れないように）
     requestAnimationFrame(function(){ requestAnimationFrame(function(){ root.classList.add("kei-ready"); }); });
