@@ -1,0 +1,129 @@
+/* 生成物: tools/make_kei_sub.py（直接編集しない） */
+html[data-kei="neon"]{color-scheme:dark;--theme:#0A0524;
+  --cream:#0A0524;--page-bg:linear-gradient(180deg,#120025 0%,#0A0524 45%,#04121E 100%);
+  --surface:#0A1828;--band:#0A1424;--line:#0A5A66;
+  --ink:#EAFFFD;--ink-muted:#8FD6E0;--oshi-pink:#00E5FF;--oshi-pink-deep:#00E5FF;
+  --purple:#B388FF;--purple-deep:#C9B6FF;--purple-soft:#1E1450;--pink-soft:#06323C;
+  --gold-soft:#2E2608;--gold-ink:#FFD54F;--mint-soft:#063A2E;--mint-ink:#5EF2C2;
+  --grad-primary:linear-gradient(120deg,#00E5FF 0%,#00B8D4 100%);--on-accent:#04121E;
+  --grad-band:linear-gradient(120deg,#120025 0%,#1A0A4E 100%);--on-band:#EAFFFD;
+  --midcta-bg:linear-gradient(120deg,#0A1828,#1A0A4E);
+  --topbar-bg:rgba(10,5,36,.88);--sticky-bg:rgba(10,24,40,.95);
+  --logo-ink:#EAFFFD;--logo-accent:#00E5FF;
+  --sh-card:0 8px 22px rgba(0,0,0,.35);--sh-cta:0 0 0 1px #0A5A66,0 10px 30px rgba(0,229,255,.22);--sh-pop:0 14px 40px rgba(0,229,255,.14);
+  --font-display:"Zen Kaku Gothic New","Zen Maru Gothic",system-ui,sans-serif;
+  --font-body:"Zen Kaku Gothic New","Zen Maru Gothic",system-ui,-apple-system,sans-serif;
+  --font-latin:"Orbitron","Zen Kaku Gothic New","Zen Maru Gothic",sans-serif}
+html[data-kei="noir"]{color-scheme:dark;--theme:#1F0B33;
+  --cream:#1F0B33;--page-bg:linear-gradient(180deg,#1A0A2E 0%,#2A0D3E 50%,#14071E 100%);
+  --surface:#241033;--band:#1C0C2C;--line:#5A2E6E;
+  --ink:#EDE2CE;--ink-muted:#C6A9D4;--oshi-pink:#D4AF6A;--oshi-pink-deep:#D4AF6A;
+  --purple:#9B6BC2;--purple-deep:#D9C2EA;--purple-soft:#351A4A;--pink-soft:#3A2410;
+  --gold-soft:#3A2A10;--gold-ink:#E8C987;--mint-soft:#10302A;--mint-ink:#8FE3C4;
+  --grad-primary:linear-gradient(120deg,#8E0E2E 0%,#6B0A23 100%);--on-accent:#F5ECDB;
+  --grad-band:linear-gradient(120deg,#1A0A2E 0%,#4B0082 100%);--on-band:#EDE2CE;
+  --midcta-bg:linear-gradient(120deg,#241033,#3A0F3F);
+  --topbar-bg:rgba(26,10,46,.9);--sticky-bg:rgba(36,16,51,.95);
+  --logo-ink:#EDE2CE;--logo-accent:#D4AF6A;
+  --sh-card:0 8px 22px rgba(0,0,0,.35);--sh-cta:0 0 0 1px #D4AF6A,0 10px 28px rgba(142,14,46,.35);--sh-pop:0 14px 40px rgba(0,0,0,.4);
+  --font-display:"Shippori Mincho B1","Shippori Mincho",serif;
+  --font-body:"Noto Serif JP","Shippori Mincho",serif;
+  --font-latin:"Cinzel","Shippori Mincho B1","Shippori Mincho",serif}
+html[data-kei="star"]{--theme:#FFF0F6;
+  --cream:#FFF0F6;--page-bg:#FFF0F6;
+  --surface:#FFF7FA;--band:#FFFAFC;--line:#F6D3E2;
+  --ink:#2B1B26;--ink-muted:#6E5F68;--oshi-pink:#FF4488;--oshi-pink-deep:#C2185B;
+  --purple:#F5A623;--purple-deep:#7A4F00;--purple-soft:#FFF1C9;--pink-soft:#FFE0EC;
+  --gold-soft:#FFF1C9;--gold-ink:#8A5A00;--mint-soft:#D6F7EC;--mint-ink:#0B7A55;
+  --grad-primary:linear-gradient(120deg,#C2185B 0%,#D81B60 100%);--on-accent:#FFFFFF;
+  --grad-band:linear-gradient(120deg,#FF6B9D 0%,#FFD700 100%);--on-band:#2B1B26;
+  --midcta-bg:linear-gradient(120deg,#FFE0EC,#FFF4C9);
+  --topbar-bg:rgba(255,240,246,.9);--sticky-bg:rgba(255,247,250,.95);
+  --logo-ink:#2B1B26;--logo-accent:#C2185B;
+  --font-display:"RocknRoll One","Zen Maru Gothic",sans-serif;
+  --font-body:"M PLUS Rounded 1c","Zen Maru Gothic",system-ui,-apple-system,sans-serif;
+  --font-latin:"Poppins","RocknRoll One","Zen Maru Gothic",sans-serif}
+html[data-kei="dream"]{--theme:#FDF4FF;
+  --cream:#FDF4FF;--page-bg:#FDF4FF;
+  --surface:#FBF6FF;--band:#FEFAFF;--line:#EBDDF7;
+  --ink:#2B1B26;--ink-muted:#6E5F68;--oshi-pink:#B06BF0;--oshi-pink-deep:#6A1B9A;
+  --purple:#7FB2F0;--purple-deep:#2D5A8E;--purple-soft:#E2EFFD;--pink-soft:#F3E5FF;
+  --gold-soft:#FFF0D6;--gold-ink:#8A5300;--mint-soft:#DDF7EE;--mint-ink:#0B7A55;
+  --grad-primary:linear-gradient(120deg,#6A1B9A 0%,#9C4DCC 100%);--on-accent:#FFFFFF;
+  --grad-band:linear-gradient(120deg,#FFD6EC 0%,#C5E0FC 55%,#F2E2FF 100%);--on-band:#2B1B26;
+  --midcta-bg:linear-gradient(120deg,#FFE6F3,#E6F0FE);
+  --topbar-bg:rgba(253,244,255,.9);--sticky-bg:rgba(251,246,255,.95);
+  --logo-ink:#2B1B26;--logo-accent:#6A1B9A;
+  --font-display:"Hachi Maru Pop","Zen Maru Gothic",sans-serif;
+  --font-body:"Kosugi Maru","Zen Maru Gothic",system-ui,-apple-system,sans-serif;
+  --font-latin:"Quicksand","Kosugi Maru","Zen Maru Gothic",sans-serif}
+html[data-kei="splash"]{--theme:#FFF4FA;
+  --cream:#FFF4FA;--page-bg:#FFF4FA;
+  --surface:#FFF8FC;--band:#FFFFFF;--line:#F9D2E6;
+  --ink:#2B1B26;--ink-muted:#6E5F68;--oshi-pink:#FF2D95;--oshi-pink-deep:#B80063;
+  --purple:#9BE22D;--purple-deep:#3F6B00;--purple-soft:#EEFFD0;--pink-soft:#FFE0F0;
+  --gold-soft:#FFF1C9;--gold-ink:#8A5A00;--mint-soft:#E5FFC2;--mint-ink:#3F6B00;
+  --grad-primary:linear-gradient(120deg,#B80063 0%,#D6007A 100%);--on-accent:#FFFFFF;
+  --grad-band:linear-gradient(120deg,#FFD6EC 0%,#DBFF9E 100%);--on-band:#2B1B26;
+  --midcta-bg:linear-gradient(120deg,#FFE0F0,#EEFFD0);
+  --topbar-bg:rgba(255,244,250,.9);--sticky-bg:rgba(255,248,252,.95);
+  --logo-ink:#2B1B26;--logo-accent:#B80063;
+  --font-display:"Mochiy Pop One","Zen Maru Gothic",sans-serif;
+  --font-body:"M PLUS Rounded 1c","Zen Maru Gothic",system-ui,-apple-system,sans-serif;
+  --font-latin:"Mochiy Pop One","Zen Maru Gothic",sans-serif} /* アプリのラテン見出しは Rampart One（縁取り書体）だが、LP では 12px の小見出し・ボタン名に当たり読めないため使わない */
+/* 太さが 400 しか無い見出し書体（star・dream・splash）は、ブラウザの疑似太字で潰れないように合成を止める */
+html:is([data-kei="star"],[data-kei="dream"],[data-kei="splash"]) :is(h1,h2,h3,.disp,.amt,.hero .sub,.job .scn,.midcta b,.reg-card h2,.reg-ok b,.ctaband h2,.plan .pricerow .num,.flowstep .n,.count-pill .n,.reg-count .n){font-synthesis:none}
+
+/* 世界観の切替ボタン（ヒーローと系スキン節の 2 か所。2 か所目は JS が複製） */
+.kei-pick{display:flex;flex-direction:column;align-items:center;gap:8px;width:100%;max-width:420px;margin:0 auto}
+.kei-pick[hidden]{display:none}
+.kei-pick .kp-lbl{font-size:12.5px;font-weight:800;color:var(--ink-muted);text-align:center}
+.kei-pick .kp-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;width:100%}
+@media(min-width:420px){.kei-pick .kp-row{grid-template-columns:repeat(6,minmax(0,1fr))}}
+.kei-pick button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;min-height:52px;min-width:0;
+  padding:5px 4px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface,#fff);color:var(--ink);
+  font-family:var(--font-body);cursor:pointer;line-height:1.15;-webkit-tap-highlight-color:transparent}
+.kei-pick button i{display:block;width:14px;height:14px;border-radius:50%;background:var(--g);box-shadow:0 0 0 1px rgba(0,0,0,.08);margin-bottom:2px}
+.kei-pick button b{font-family:var(--font-latin,var(--font-body));font-size:12px;font-weight:900;letter-spacing:.03em;white-space:nowrap}
+.kei-pick button small{font-size:10px;font-weight:700;color:var(--ink-muted);white-space:nowrap}
+.kei-pick button[aria-pressed="true"]{border-color:var(--oshi-pink-deep);box-shadow:inset 0 0 0 1.5px var(--oshi-pink-deep)}
+.kei-pick button:focus-visible{outline:3px solid var(--oshi-pink-deep);outline-offset:2px}
+.kei-pick .kp-note{font-size:12px;font-weight:700;color:var(--ink-muted);text-align:center;line-height:1.6;margin:0}
+/* 系ごとの 2 つ目の書体（アプリの書体変種と同じ。本文は読みやすさのため変えず、見出しと金額だけ変わる） */
+html[data-kei="neon"]{--font-alt:"DotGothic16","Zen Kaku Gothic New",system-ui,sans-serif}
+html[data-kei="noir"]{--font-alt:"Zen Old Mincho","Shippori Mincho",serif}
+html[data-kei="star"]{--font-alt:"Mochiy Pop One","Zen Maru Gothic",sans-serif}
+html[data-kei="dream"]{--font-alt:"Yusei Magic","Zen Maru Gothic",sans-serif}
+html[data-kei="splash"]{--font-alt:"Reggae One","Zen Maru Gothic",sans-serif}
+html[data-kei][data-kei-font="alt"]{--font-display:var(--font-alt);font-synthesis-weight:none}
+.kei-pick .kp-fonts{display:flex;flex-direction:column;align-items:center;gap:6px;width:100%}
+.kei-pick .kp-fonts[hidden]{display:none}
+.kei-pick .kp-frow{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;width:100%}
+.kei-pick .kp-frow button{min-height:44px}
+.kei-pick .kp-frow button b{font-family:var(--font-body);font-size:12.5px;font-weight:700;letter-spacing:0}
+.kei-pick .kp-frow button[data-kei-font="alt"] b{font-family:var(--font-alt)}
+/* ヘッダーの着せ替え（どこまでスクロールしても押せる） */
+.kei-menu[hidden]{display:none}
+.kei-toggle{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 12px;border-radius:999px;border:1.5px solid var(--line);
+  background:var(--surface,#fff);color:var(--ink);font-family:var(--font-body);font-size:13px;font-weight:800;white-space:nowrap;cursor:pointer;
+  -webkit-tap-highlight-color:transparent}
+.kei-toggle i{display:block;width:14px;height:14px;border-radius:50%;background:var(--g,linear-gradient(120deg,#ff5fa2,#8b5cf6));box-shadow:0 0 0 1px rgba(0,0,0,.08)}
+.kei-toggle[aria-expanded="true"]{border-color:var(--oshi-pink-deep)}
+.kei-toggle:focus-visible{outline:3px solid var(--oshi-pink-deep);outline-offset:2px}
+@media(max-width:359px){.kei-toggle{padding:0 8px;font-size:12px}.kei-toggle i{display:none}.topbar .btn-sm{padding:0 10px;font-size:13px}}
+.field,.field input{min-width:0}
+.kei-pop{position:absolute;top:calc(100% + 6px);right:12px;width:min(440px,calc(100vw - 24px));max-height:calc(100dvh - 84px);overflow-y:auto;
+  padding:14px;border-radius:18px;border:1px solid var(--line);background:var(--surface,#fff);box-shadow:0 18px 44px rgba(31,20,48,.24)}
+.kei-pop[hidden]{display:none}
+
+/* ここから機能ページ専用（色を直書きしている部品をトークンへ寄せる） */
+html[data-kei] body{background:var(--page-bg,var(--cream))}
+html[data-kei] .topbar{background:var(--topbar-bg,var(--cream))}
+html[data-kei] .btn-primary,html[data-kei] .step .n{color:var(--on-accent,#fff)}
+html[data-kei] .btn-ghost,html[data-kei] .sec.white,html[data-kei] .frow,html[data-kei] .step{background:var(--surface,#fff)}
+html[data-kei] .sec.white .frow,html[data-kei] .view{background:var(--band,var(--cream))}
+html[data-kei] .honest{border-color:var(--line)}
+.topbar .in{position:relative}
+.topbar .brand{margin-left:auto}
+.topbar .kei-menu{margin-left:10px;order:3}
+@media(max-width:400px){.topbar .brand{font-size:0;gap:0}}
