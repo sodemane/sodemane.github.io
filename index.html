@@ -299,6 +299,28 @@ img[src*="/app-"]{aspect-ratio:780/1696}
 .head h2{font-family:var(--font-display);font-weight:700;font-size:30px;margin-top:10px}
 .head .tag{font-size:14px;font-weight:700;color:var(--ink-muted);margin-top:8px}
 
+/* 推しジャンルの匿名 1 問（2026-11-08・B1）: LP の訪問者が誰かを個人情報なしで知るため。押したジャンル名だけを lp_survey で送る */
+.survey{padding:0 0 28px}
+.survey .sv-card{max-width:640px;margin:0 auto;background:var(--surface,#fff);border:1px solid var(--line);border-radius:var(--r-lg);
+  box-shadow:var(--sh-card);padding:18px 12px 16px;text-align:center}
+.survey .sv-q{font-family:var(--font-body);font-weight:900;font-size:15px;line-height:1.5;color:var(--ink);margin:0}
+.survey .sv-fine{font-size:11.5px;font-weight:700;color:var(--ink-muted);margin:2px 0 0}
+.survey .sv-row{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 6px;margin-top:12px} /* 375px 幅で 2 行に収まる寸法（3+3） */
+.survey .sv-row button{display:inline-flex;align-items:center;justify-content:center;gap:4px;min-height:44px;min-width:44px;max-width:100%;
+  padding:0 12px;border-radius:var(--r-pill);border:1.5px solid var(--line);background:var(--surface,#fff);color:var(--ink);
+  font-family:var(--font-body);font-size:13px;font-weight:800;line-height:1.3;cursor:pointer;-webkit-tap-highlight-color:transparent;
+  transition:border-color .18s var(--ease),background-color .18s var(--ease)}
+.survey .sv-row button[aria-pressed="true"]{border-color:var(--oshi-pink-deep);background:var(--pink-soft);color:var(--oshi-pink-deep);
+  box-shadow:inset 0 0 0 1px var(--oshi-pink-deep)}
+.survey .sv-row button{position:relative}
+/* 色だけに頼らず選択を示す印。角に重ねて置く＝押しても幅が変わらず、2 行の並びが崩れない */
+.survey .sv-row button[aria-pressed="true"]::after{content:"✓";position:absolute;top:-7px;right:-5px;width:20px;height:20px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;line-height:1;
+  background:var(--oshi-pink-deep);color:var(--on-accent,#fff);box-shadow:0 0 0 2px var(--surface,#fff)}
+.survey .sv-row button:focus-visible{outline:3px solid var(--oshi-pink-deep);outline-offset:2px}
+.survey .sv-msg{font-size:13.5px;font-weight:700;color:var(--ink);line-height:1.7;margin:12px 0 0;word-break:auto-phrase} /* 日本語を文節で折る（対応ブラウザのみ・非対応は通常の折返し） */
+.survey .sv-msg:empty{display:none}
+
 /* trust */
 .trust{display:grid;grid-template-columns:1fr;gap:16px;padding-block:24px}
 .trust .item{display:flex;gap:12px;align-items:flex-start}
@@ -772,6 +794,26 @@ html[data-kei][data-kei-font="alt"]{--font-display:var(--font-alt);font-synthesi
         <!-- 世界観の切替はヘッダーの「着せ替え」へ移した（2026-11-03・どこまでスクロールしても押せるように）。系スキン節にも同じものを JS が複製する。 -->
         <img id="heroShot" class="shot" src="assets/screens/app-home.webp" alt="ソデマネの実際のホーム画面（サンプルデータ）" data-default-src="assets/screens/app-home.webp" data-default-alt="ソデマネの実際のホーム画面（サンプルデータ）" style="width:100%;max-width:330px;border-radius:30px;border:1px solid var(--line);box-shadow:0 24px 60px rgba(31,20,48,.22);display:block;margin:0 auto" loading="eager">
       </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SURVEY（推しジャンルの匿名 1 問・2026-11-08） ============ -->
+  <!-- section に id を付けない＝section_view の対象外（ヒーロー直下で必ず見えるため到達の数字が無意味になる）。回答は任意・未回答でも何も妨げない -->
+  <section class="survey" aria-labelledby="svQ">
+    <div class="wrap">
+      <div class="sv-card">
+        <p id="svQ" class="sv-q">あなたの推しは、どのジャンルですか？</p>
+        <p class="sv-fine">任意の 1 問です。お名前などは伺いません。</p>
+        <div class="sv-row" role="group" aria-labelledby="svQ">
+          <button type="button" data-genre="idol" aria-pressed="false">アイドル</button>
+          <button type="button" data-genre="stage" aria-pressed="false">2.5次元・舞台</button>
+          <button type="button" data-genre="seiyu" aria-pressed="false">声優</button>
+          <button type="button" data-genre="kpop" aria-pressed="false">K-POP</button>
+          <button type="button" data-genre="band" aria-pressed="false">バンド・アーティスト</button>
+          <button type="button" data-genre="other" aria-pressed="false">その他</button>
+        </div>
+        <p class="sv-msg" id="svMsg" aria-live="polite"></p>
       </div>
     </div>
   </section>
@@ -1614,6 +1656,44 @@ html[data-kei][data-kei-font="alt"]{--font-display:var(--font-alt);font-synthesi
     requestAnimationFrame(function(){ requestAnimationFrame(function(){ root.classList.add("kei-ready"); }); });
   }
 
+  /* ---- 推しジャンルの匿名 1 問（2026-11-08・B1） ----
+     送るのはジャンルの区分（genre:idol 等）だけ。回答はこのブラウザの localStorage にだけ残し、
+     再訪時は答えた状態を出す（その時は送らない）。答えを変えたときだけ新しい区分を送る。 */
+  var SURVEY_KEY = "sodemane_lp_genre";
+  var SURVEY_MSG = {
+    idol:  "当落と遠征の日程、先回りして見ておきます。",
+    stage: "公演が重なる週も、日程と出費をまとめて見ておきます。",
+    seiyu: "イベントも公演も、当落と日程をひとつのカレンダーにまとめておけます。",
+    kpop:  "来日公演の当落と遠征費、まとめて見られます。",
+    band:  "ツアーの日程と遠征費、先回りして見ておきます。",
+    other: "どのジャンルの推し活でも、予定とお金をまとめて見ておきます。"
+  };
+  function initSurvey(){
+    var row = document.querySelector(".survey .sv-row");
+    var msg = document.getElementById("svMsg");
+    if(!row || !msg) return;
+    var btns = row.querySelectorAll("button[data-genre]");
+    function show(g){
+      for(var i=0;i<btns.length;i++){
+        btns[i].setAttribute("aria-pressed", btns[i].getAttribute("data-genre") === g ? "true" : "false");
+      }
+      msg.textContent = SURVEY_MSG[g] || "";
+    }
+    var saved = null;
+    try { saved = localStorage.getItem(SURVEY_KEY); } catch(e){}
+    if(saved && SURVEY_MSG.hasOwnProperty(saved)) show(saved); else saved = null;
+    row.addEventListener("click", function(ev){
+      var b = ev.target && ev.target.closest ? ev.target.closest("button[data-genre]") : null;
+      if(!b) return;
+      var g = b.getAttribute("data-genre");
+      if(!SURVEY_MSG.hasOwnProperty(g) || g === saved) return; // 同じ答えの押し直しは送らない
+      saved = g;
+      show(g);
+      try { localStorage.setItem(SURVEY_KEY, g); } catch(e){}
+      track("lp_survey", { label: "genre:" + g });
+    });
+  }
+
   function init(){
     applyPricing();
     animateGauges();
@@ -1624,6 +1704,7 @@ html[data-kei][data-kei-font="alt"]{--font-display:var(--font-alt);font-synthesi
     initSkins();
     applyKeiSale();
     initKei();
+    initSurvey();
     // CTAクリック計測（事前登録ボタン）
     var ctas = document.querySelectorAll('a[href="#register"]');
     for(var i=0;i<ctas.length;i++){
